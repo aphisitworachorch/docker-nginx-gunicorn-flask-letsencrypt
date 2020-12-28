@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
+    <meta property="og:title" content="福建 Python SUT REG Scraper"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image"
+          content="{{ request.host_url }}{{ url_for('static', filename='img/header/fujianog.png') }}"/>
+    <meta property="og:image:url"
+          content="{{ request.host_url }}{{ url_for('static', filename='img/header/fujianog.png') }}"/>
+</head>
+<body>
+<div class="container py-2 animate__animated animate__fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="shadow" style="height:100%;padding:10px;">
+                <div style="text-align: center;">
+                    <h4>ข้อมูลของนักศึกษาจากระบบทะเบียนนักศึกษามหาวิทยาลัยเทคโนโลยีสุรนารี</h4>
+                </div>
+                <div class="row" style="text-align:center">
+                    <div class="col-lg-3">
+                        <h3>
+                            <span style="display:block">รหัสนักศึกษา</span>
+                            <span id="student_id" class="ctx" style="display:block">{{ student_id }}</span>
+                        </h3>
+                    </div>
+                    <div class="col-lg-4">
+                        <h3>
+                            <span style="display:block">ระดับการศึกษา</span>
+                            <span class="ctx" style="display:block">{{ degree }}</span>
+                        </h3>
+                    </div>
+                    <div class="col-lg-5">
+                        <h3>
+                            <span style="display:block">จำนวนวิชาที่ลงทะเบียน</span>
+                            <span class="ctx" style="display:block">{{ lensub }} วิชา</span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="container animate__animated animate__fadeIn" id="personalInfo">
+                    <div style="padding:10px;">
+                        <div class="row" style="text-align:center">
+                            <div class="col-lg-4">
+                                <h5>
+                                    <span style="display:block">ชื่อ - นามสกุล</span>
+                                    <span id="student_id" class="ctx" style="display:block">{{ student_name }}</span>
+                                </h5>
+                            </div>
+                            <div class="col-lg-4">
+                                <h5>
+                                    <span style="display:block">อาจารย์ที่ปรึกษา</span>
+                                    <span class="ctx" style="display:block">{{ assistant }}</span>
+                                </h5>
+                            </div>
+                            <div class="col-lg-4">
+                                <h5>
+                                    <span style="display:block">หลักสูตร และ สาขา</span>
+                                    <span class="ctx" style="display:block">{{ institute }}</span>
+                                    <span class="ctx" style="display:block">{{ minor }}</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container py-1 animate__animated animate__fadeInUp">
+    <div class="table-responsive">
+        รายวิชาที่ลงทะเบียนในภาคการศึกษานี้
+        <table class="table border">
+            <thead>
+            <th>ลำดับ</th>
+            <th style="text-align: center;">รหัสวิชา</th>
+            <th style="text-align: center;">ชื่อวิชา ภาษาอังกฤษ - ภาษาไทย</th>
+            </thead>
+            <tbody>
+            {% for i in range(0,lensub) %}
+            <tr>
+                <td>
+                    {{ i + 1 }}
+                </td>
+                <td style="text-align: center;">
+                    {{ subject_id[i] }}
+                </td>
+                <td style="text-align: center;">
+                    วิชา {{ subject_name[i] }}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container py-1 animate__animated animate__fadeInUp" style="text-align: center">
+    <div class="btn btn-info" id="credit">
+        สาสน์จากผู้พัฒนาระบบ
+    </div>
+    <br/>
+    <div class="container" style="text-align: center">
+        <h4>Tech Stacks</h4>
+        {% for file in images_file %}
+        <img src="{{ url_for('static', filename=file) }}" style="height:60px;padding:10px"/>
+        {% endfor %}
+    </div>
+</div>
+</body>
+<script src="{{ url_for('static', filename='js/app.js') }}" type="application/javascript"></script>
+<script>
+    let doc = document.getElementById("student_id");
+    let person = document.getElementById("personalInfo");
+
+    if (person && doc) {
+        person.style.display = "none";
+
+        doc.addEventListener("click", (evt) => {
+            person.classList.add('animate__animated');
+            if (person.style.display === 'none') {
+                person.classList.remove('animate__fadeOutDown');
+                person.classList.add('animate__fadeInUp');
+                person.style.display = 'block';
+            } else {
+                person.classList.remove('animate__fadeInUp');
+                person.classList.add('animate__fadeOutDown');
+                person.style.display = 'none';
+            }
+        });
+    }
+</script>
+<footer>
+    <div class="footer">
+        Made by APlus+ (Owner of 24Batch/ECx)
+        <br/>
+    </div>
+</footer>
+</html>

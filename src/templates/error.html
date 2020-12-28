@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet" nonce>
+</head>
+<body>
+<div class="container" style="text-align: center">
+    <h1>HTTP Status Code {{ error_code }}</h1>
+    <h2>Not Found / Errors</h2>
+    <div class="container py-2">
+        <div class="plyr__video-embed" id="player">
+            <iframe
+                    src="{{ error_link }}&modestbranding=1&autohide=1&showinfo=0;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                    allowfullscreen
+                    allowtransparency
+                    allow="autoplay">
+            </iframe>
+        </div>
+        <br/>
+        <p class="btn btn-danger">Error : {{ log }}</p>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/app.js') }}" type="application/javascript" nonce></script>
+</body>
+</html>

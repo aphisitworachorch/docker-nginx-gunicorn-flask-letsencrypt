@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
+    <meta property="og:title" content="福建 Python SUT REG Scraper"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image"
+          content="{{ request.host_url }}{{ url_for('static', filename='img/header/fujianog.png') }}"/>
+    <meta property="og:image:url"
+          content="{{ request.host_url }}{{ url_for('static', filename='img/header/fujianog.png') }}"/>
+</head>
+<body>
+<div class="container py-4 animate__animated animate__fadeIn">
+    <div class="container" style="text-align: center">
+        <h2>จำนวนนักศึกษา มหาวิทยาลัยเทคโนโลยีสุรนารี</h2>
+        <br/>
+        <h1 id="counterDIV" style="font-size:6em;"></h1>
+    </div>
+</div>
+<div class="container py-4 animate__animated animate__fadeInUp" style="text-align: center">
+    <div class="btn btn-info" id="credit">
+        สาสน์จากผู้พัฒนาระบบ
+        <input type="hidden" id="count" value="{{ student_count }}"/>
+    </div>
+    <br/>
+</div>
+</body>
+<script src="{{ url_for('static', filename='js/app.js') }}" type="application/javascript"></script>
+<footer>
+    <div class="footer">
+        Made by APlus+ (Owner of 24Batch/ECx)
+        <br/>
+    </div>
+</footer>
+</html>

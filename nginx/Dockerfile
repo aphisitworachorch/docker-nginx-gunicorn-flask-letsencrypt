@@ -2,7 +2,7 @@
 FROM nginx:1.19-alpine
 
 # Install certbot for letsencrypt certificates
-RUN apk add --no-cache certbot
+RUN apk add --no-cache certbot bash
 
 # Replace existing files by our own configs
 RUN rm /etc/nginx/nginx.conf && rm /etc/nginx/conf.d/default.conf
@@ -39,4 +39,5 @@ RUN chmod +x /entrypoint.sh \
   && chmod +x /etc/periodic/weekly/renew
 
 # Install certificates and launch
-ENTRYPOINT ../entrypoint.sh $DOMAIN $EMAIL
+ENTRYPOINT bash entrypoint.sh $DOMAIN $EMAIL
+#ENTRYPOINT ../entrypoint.sh $DOMAIN $EMAIL

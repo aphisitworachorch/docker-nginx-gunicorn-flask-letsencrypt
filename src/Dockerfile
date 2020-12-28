@@ -1,12 +1,5 @@
 # Flask app Dockerfile
-FROM python:3.8-alpine
-
-# Install needed dependencies for our app to run.
-RUN apk update \
-  && apk add --no-cache \
-    gcc \
-    libffi-dev \
-    musl-dev
+FROM python:latest
 
 WORKDIR /opt/app
 
@@ -30,6 +23,7 @@ ENV PATH="/home/$USER/.local/bin:${PATH}"
 # files to we don't need to reduce the container size
 COPY requirements.txt .
 RUN pip install \
+    --upgrade pip \
     --no-cache-dir \
     --no-warn-script-location \
     --user \

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fujian</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
+    <meta property="og:title" content="福建 Python SUT REG Scraper"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image"
+          content="{{ request.host_url }}{{ url_for('static', filename='img/header/fujianog.png') }}"/>
+    <meta property="og:image:url"
+          content="{{ request.host_url }}{{ url_for('static', filename='img/header/fujianog.png') }}"/>
+</head>
+<body>
+    <div class="container" style="text-align: center">
+        <h2>Hi , It's Fujian ! . Now I'm on V3alpha</h2>
+        <br/>
+        <h3>Add LINE Chatbot</h3>
+        <br/>
+        <img src="{{ url_for('static', filename='img/line/bot.png') }}" style="text-align: center"/>
+        <pre>{{ msg }}</pre>
+    </div>
+</body>
+<footer>
+    <div class="footer">
+        Made by APlus+ (Owner of 24Batch/ECx)
+        <br/>
+    </div>
+</footer>
+</html>

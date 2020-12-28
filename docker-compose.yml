@@ -6,7 +6,7 @@
 #   - FLASK_APP: Flask entrypoint
 #   - FLASK_ENV: Flask environment
 
-version: "3.2"
+version: "3.9"
 
 services:
   nginx:
@@ -26,8 +26,21 @@ services:
 
   application:
     build: ./${APP_FOLDER}
-    command: gunicorn -c gunicorn.ini.py ${FLASK_APP}:app
+    command: gunicorn -c gunicorn.ini.py ${FLASK_APP}:app --timeout 10000 --workers 2
     environment:
       - FLASK_ENV=${FLASK_ENV}
     ports:
       - 5000:5000
+    depends_on:
+      - redis
+    links:
+      - redis
+
+  redis:
+    image: redis:alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
