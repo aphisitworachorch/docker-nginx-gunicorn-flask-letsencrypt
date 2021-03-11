@@ -9,28 +9,13 @@
 version: "3.9"
 
 services:
-  nginx:
-    build:
-      context: ./nginx
-      args:
-        DOMAIN: ${DOMAIN}
-        EMAIL: ${EMAIL}
-        FLASK: application
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt
-    depends_on:
-      - application
-
   application:
     build: ./${APP_FOLDER}
-    command: gunicorn -c gunicorn.ini.py ${FLASK_APP}:app --timeout 10000 --workers 2
+    command: gunicorn -c gunicorn.ini.py ${FLASK_APP}:app --timeout 10000 --workers 4
     environment:
       - FLASK_ENV=${FLASK_ENV}
     ports:
-      - 5000:5000
+      - 10779:10779
     depends_on:
       - redis
     links:

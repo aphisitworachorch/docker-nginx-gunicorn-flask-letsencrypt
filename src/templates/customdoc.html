@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Documentation</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <div class="container py-2">
         {% if title is defined %}
         <h2>{{ title }}</h2>
@@ -30,5 +23,4 @@
         {% endif %}
     </div>
 </body>
-<script src="{{ url_for('static', filename='js/app.js') }}" type="application/javascript"></script>
-</html>
+{% endblock %}

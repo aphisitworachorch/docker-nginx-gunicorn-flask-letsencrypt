@@ -1,6 +1,8 @@
 # FUJIAN Discovery tool for SUT REG
 # !Python
 import re
+from functools import reduce
+from operator import mul
 
 import requests
 from bs4 import BeautifulSoup
@@ -139,6 +141,59 @@ def getstudentenrollment_raw(url):
     return subject
 
 
+def getonline_subject(subject_id):
+    r = requests.post("http://reg5.sut.ac.th/registrar/examdata/searchexamcourse.asp", data=dict(
+        VAPPLICANTCODE=subject_id
+    ))
+    r.encoding = r.apparent_encoding
+    sr = BeautifulSoup(r.text, 'html.parser')
+    table_reg = sr.find_all('td')
+    subject_list = []
+    btn_if = []
+    i = 0
+    for tb in table_reg:
+        btn_if = [x['value'] for x in sr.find_all('input',attrs={'type':'checkbox'})]
+        subject_f = tb.find_all('font', attrs={'face': 'MS Sans Serif', 'color': '#000080', 'size': '3'})
+        link = [x['href'] for x in tb.find_all('a', href=True)]
+        if len(subject_f) <= 0:
+            pass
+        else:
+            subject_list_san = str(re.sub('<.*?>', '', str(subject_f[0])).replace('\xa0', '').rstrip())
+            if subject_list_san == 'Link':
+                subject_list.append(str(link[0]))
+            else:
+                subject_list.append(subject_list_san)
+            i = i + 1
+
+    shape = [len(subject_list), 9]
+
+    lr = reshape(subject_list, shape)
+    subj = []
+    for l in lr:
+        i = 0
+        subj.append({
+            "number": l[i + 1],
+            "subject": l[i + 2],
+            "lecturer": l[i + 4],
+            "place": l[i + 3],
+            "zoom": l[i + 5],
+            "fb": l[i + 7],
+            "line": l[i + 8],
+            "etc": l[i + 6],
+            "mixed": btn_if[i]
+        })
+        i = i + 1
+
+    return subj
+
+
+def reshape(lst, shape):
+    if len(shape) == 1:
+        return lst
+    n = reduce(mul, shape[1:])
+    return [reshape(lst[i * n:(i + 1) * n], shape[1:]) for i in range(len(lst) // n)]
+
+
 def subject_regex_sanitize(content):
     st = re.sub('<br.*?>', ' - ', str(content))
     return re.sub('<.*?>', '', str(st)).replace('\xa0', '')
@@ -166,8 +221,6 @@ def getassistant(content):
 def sanitizehtml(content, lengthweb):
     countenroll = 0
     fullcontent = []
-    temp = ""
-    sanitizer = ""
 
     for v in range(11, lengthweb):
         if v % 2 == 0:

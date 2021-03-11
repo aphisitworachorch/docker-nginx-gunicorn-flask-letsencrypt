@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Student Information</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
-    <meta property="og:title" content="福建 Python SUT REG Scraper"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:image"
-          content="{{ request.host_url }}{{ url_for('static', filename='img/header/fujianog.png') }}"/>
-    <meta property="og:image:url"
-          content="{{ request.host_url }}{{ url_for('static', filename='img/header/fujianog.png') }}"/>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 <div class="container py-2 animate__animated animate__fadeIn">
     <div class="row">
         <div class="col-lg-12">
@@ -78,6 +65,7 @@
             <th>ลำดับ</th>
             <th style="text-align: center;">รหัสวิชา</th>
             <th style="text-align: center;">ชื่อวิชา ภาษาอังกฤษ - ภาษาไทย</th>
+            <th>ดูข้อมูลรายวิชาเพิ่มเติม</th>
             </thead>
             <tbody>
             {% for i in range(0,lensub) %}
@@ -90,6 +78,9 @@
                 </td>
                 <td style="text-align: center;">
                     วิชา {{ subject_name[i] }}
+                </td>
+                <td style="text-align: center">
+                    <div class="btn btn-outline-info" onclick="getSubject('{{ subject_id[i] }}')">ดูรายวิชา</div>
                 </td>
             </tr>
             {% endfor %}
@@ -109,8 +100,6 @@
         {% endfor %}
     </div>
 </div>
-</body>
-<script src="{{ url_for('static', filename='js/app.js') }}" type="application/javascript"></script>
 <script>
     let doc = document.getElementById("student_id");
     let person = document.getElementById("personalInfo");
@@ -131,11 +120,15 @@
             }
         });
     }
+
+    let getSubject = function(subject_id) {
+        axios.get('/subject/' + subject_id).then((response) => {
+            let wording = '';
+            for(let i in response){
+                wording += "รายวิชา " + i + " [" + response[i].subject + "]";
+            }
+            alert(wording);
+        })
+    }
 </script>
-<footer>
-    <div class="footer">
-        Made by APlus+ (Owner of 24Batch/ECx)
-        <br/>
-    </div>
-</footer>
-</html>
+{% endblock %}
