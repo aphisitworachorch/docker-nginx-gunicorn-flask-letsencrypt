@@ -26,19 +26,21 @@ term = 2
 EXCELMIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 app.config['RQ_ASYNC'] = True
 app.config['RQ_CONNECTION_CLASS'] = 'redis.StrictRedis'
+host = os.environ['REDIS_HOST']
+password = os.environ['REDIS_PASSWORD']
 
 cache = Cache(app, config={
     'CACHE_TYPE': 'redis',
     'CACHE_KEY_PREFIX': 'fujian_',
-    'CACHE_REDIS_HOST': '${REDIS_HOST}',
-    'CACHE_REDIS_PASSWORD': '${REDIS_PASSWORD}',
+    'CACHE_REDIS_HOST': host,
+    'CACHE_REDIS_PASSWORD': password,
     'CACHE_REDIS_PORT': '6379'})
 
 studentcache = Cache(app, config={
     'CACHE_TYPE': 'redis',
     'CACHE_KEY_PREFIX': 'fujian_student_',
-    'CACHE_REDIS_HOST': '${REDIS_HOST}',
-    'CACHE_REDIS_PASSWORD': '${REDIS_PASSWORD}',
+    'CACHE_REDIS_HOST': host,
+    'CACHE_REDIS_PASSWORD': password,
     'CACHE_REDIS_PORT': '6379',
     'CACHE_REDIS_DB': '5',
     'CACHE_DEFAULT_TIMEOUT': '86400'})
