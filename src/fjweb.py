@@ -19,7 +19,10 @@ from controller.fujian_core import FujianCore
 
 app = Flask(__name__)
 auto = Autodoc(app)
-rediscon = redis.Redis(host='redis', port=6379, db=7)
+host = os.environ['REDIS_HOST']
+password = os.environ['REDIS_PASSWORD']
+
+rediscon = redis.Redis(host=host,password=password, port=6379, db=7)
 
 # GROUND ZERO ZONE
 term = 2
@@ -52,7 +55,6 @@ def hello_world():
         http = urllib3.PoolManager()
         http.request('GET', 'https://reg.sut.ac.th/registrar')
         message = "Everything's Gonna be OK!"
-        cache.set('active', 'yes')
         return render_template('landing.html', msg=message)
     except:
         message = 'SUT Registrar System Unavailable'
