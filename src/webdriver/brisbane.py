@@ -62,8 +62,8 @@ class Brisbane:
                 pass
             else:
                 data = {
-                    "student_id": self.string_cutter(str(row[1]).replace('"', ''), True),
-                    "name": self.cloaker(str(row[2]).replace('"', ''), True),
+                    "student_id": self.string_cutter(str(row[1]).replace('"', ''), False),
+                    "name": self.cloaker(str(row[2]).replace('"', ''), False),
                     "status": str(row[3]).replace('"', ''),
                     "insert_date": str(row[4]).replace('"', ''),
                     "first_student_id": str(row[1]).replace('"', '')[:3]
@@ -83,8 +83,8 @@ class Brisbane:
             else:
                 dtx = datetime.strptime(str(row[4]).replace('"', '')[:10], '%d/%m/%Y')
                 data = {
-                    "student_id": self.string_cutter(str(row[1]).replace('"', ''), True),
-                    "name": self.cloaker(str(row[2]).replace('"', ''), True),
+                    "student_id": self.string_cutter(str(row[1]).replace('"', ''), False),
+                    "name": self.cloaker(str(row[2]).replace('"', ''), False),
                     "status": str(row[3]).replace('"', ''),
                     "success_date": dtx,
                     "first_student_id": str(row[1]).replace('"', '')[:3]
