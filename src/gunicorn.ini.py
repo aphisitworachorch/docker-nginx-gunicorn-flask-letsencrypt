@@ -4,5 +4,5 @@
 import multiprocessing
 import os
 
-bind = "0.0.0.0:5000"
+bind = "0.0.0.0:10779"
 workers = multiprocessing.cpu_count()
