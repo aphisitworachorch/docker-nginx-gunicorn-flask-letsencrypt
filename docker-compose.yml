@@ -16,16 +16,11 @@ services:
       - FLASK_ENV=${FLASK_ENV}
     ports:
       - 10779:10779
-    depends_on:
-      - redis
-    links:
-      - redis
-
-  redis:
-    image: redis:alpine
-    command: ["redis-server", "--appendonly", "yes"]
-    volumes:
-      - redis-data:/data
 
 volumes:
   redis-data:
+
+networks:
+  default:
+    external:
+      name: laradock_backend
