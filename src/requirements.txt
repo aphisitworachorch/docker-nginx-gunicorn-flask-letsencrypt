@@ -36,4 +36,3 @@ pyexcel-xlsx
 xlsxwriter
 fsspec
 uwsgi
-ctypes
