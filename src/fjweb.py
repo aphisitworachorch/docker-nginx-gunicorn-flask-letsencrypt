@@ -160,7 +160,6 @@ def botGetStudent(student_id):
     data = fujian.getStudentInfo()
 
     redis_data = cache.get(student_id)
-    gc.collect()
     if redis_data is None:
         cache.set(student_id, data)
         return data

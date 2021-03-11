@@ -6,6 +6,10 @@ from datetime import datetime
 import requests
 import pandas as pd
 import json
+from ctypes import cdll, CDLL
+
+cdll.LoadLibrary("libc.so.6")
+libc = CDLL("libc.so.6")
 
 
 class Brisbane:
@@ -48,6 +52,7 @@ class Brisbane:
             return object_name
 
     def get_student_info(self):
+        libc.malloc_trim(0)
         html_body = pd.read_html(self.excelGet.content)
         dataframe = pd.DataFrame(data=html_body[0])
         i = 0
@@ -67,6 +72,7 @@ class Brisbane:
         return jsonData
 
     def get_student_graduate(self):
+        libc.malloc_trim(0)
         html_body = pd.read_html(self.excelGet.content)
         dataframe = pd.DataFrame(data=html_body[0])
         i = 0
