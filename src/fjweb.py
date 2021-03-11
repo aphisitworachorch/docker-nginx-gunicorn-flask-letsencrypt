@@ -50,6 +50,7 @@ def hello_world():
         http = urllib3.PoolManager()
         http.request('GET', 'https://reg.sut.ac.th/registrar')
         message = "Everything's Gonna be OK!"
+        cache.set('active', 'yes')
         return render_template('landing.html', msg=message)
     except:
         message = 'SUT Registrar System Unavailable'
