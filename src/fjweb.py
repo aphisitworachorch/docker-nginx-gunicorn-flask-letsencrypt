@@ -132,27 +132,27 @@ def getOnlineSubject(subject_id):
     return jsonify(subject)
 
 
-# @app.errorhandler(Exception)
-# def handle_exception(e):
-#     # error_link = ['https://www.youtube.com/embed/7Hvkhh4GaI0?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/PFygXz-Y0zA?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/wpHlagmXzxY?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/v5aepf1t5CU?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/u06GqlNiJUY?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/ztxs6nixsaI?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/1iqd-AL6soE?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/-OAPdG8sgLs?controls=0&autoplay=1&start=166',
-#     #               'https://www.youtube.com/embed/0GFKs17cjWs?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/pAP9qcjPvtE?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/k2CXu4K40bg?controls=0&autoplay=1',
-#     #               'https://www.youtube.com/embed/hmj-RT3S-d4?controls=0&autoplay=1&start=5',
-#     #               'https://www.youtube.com/embed/0QYGWXEXZwU?controls=0&autoplay=1']
-#     error_link = ['https://www.youtube.com/embed/IFcUBch8VNY?controls=0&autoplay=1']
-#     rd = random.randint(0, len(error_link) - 1)
-#     error_random = random.randint(100, 600)
-#     error_random_minus = random.randint(random.randint(1, 5), random.randint(10, 20))
-#     return render_template('error.html', error_link=error_link[rd], log=e,
-#                            error_code=error_random), error_random - error_random_minus
+@app.errorhandler(Exception)
+def handle_exception(e):
+    error_link = ['https://www.youtube.com/embed/7Hvkhh4GaI0?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/PFygXz-Y0zA?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/wpHlagmXzxY?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/v5aepf1t5CU?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/u06GqlNiJUY?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/ztxs6nixsaI?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/1iqd-AL6soE?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/-OAPdG8sgLs?controls=0&autoplay=1&start=166',
+                  'https://www.youtube.com/embed/0GFKs17cjWs?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/pAP9qcjPvtE?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/k2CXu4K40bg?controls=0&autoplay=1',
+                  'https://www.youtube.com/embed/hmj-RT3S-d4?controls=0&autoplay=1&start=5',
+                  'https://www.youtube.com/embed/0QYGWXEXZwU?controls=0&autoplay=1']
+    # error_link = ['https://www.youtube.com/embed/IFcUBch8VNY?controls=0&autoplay=1']
+    rd = random.randint(0, len(error_link) - 1)
+    error_random = random.randint(100, 600)
+    error_random_minus = random.randint(random.randint(1, 5), random.randint(10, 20))
+    return render_template('error.html', error_link=error_link[rd], log=e,
+                           error_code=error_random), error_random - error_random_minus
 
 
 def botGetStudent(student_id):
