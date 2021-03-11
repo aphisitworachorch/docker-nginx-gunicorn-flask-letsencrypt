@@ -8,6 +8,9 @@ ENV GROUP=app
 ENV USER=flask
 ENV UID=12345
 ENV GID=23456
+ENV REDIS_HOST=${REDIS_HOST}
+ENV REDIS_PASSWORD=${REDIS_PASSWORD}
+
 RUN addgroup --gid "$GID" "$GROUP" \
   && adduser --uid "$UID" \
     --disabled-password \
